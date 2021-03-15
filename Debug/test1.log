@@ -1,8 +1,0 @@
-﻿  game.cpp
-E:\GitHub\My-Amazing-First-Minigame\game.cpp(86,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  main.cpp
-  entity.cpp
-E:\GitHub\My-Amazing-First-Minigame\entity.cpp(62,17): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-E:\GitHub\My-Amazing-First-Minigame\entity.cpp(63,17): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
-  test1.vcxproj -> E:\GitHub\My-Amazing-First-Minigame\Debug\test1.exe
