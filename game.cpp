@@ -129,7 +129,6 @@ bool Game::Update() {
 
 	Scene.Move(0, 1);
 	if (Scene.GetY() >= 0) {
-		std::cout << Scene.GetHeight()<<endl<< Scene.GetY()<<endl;
 		Scene.SetY(-(Scene.GetHeight() / 2));
 	}
 	//Player update
