@@ -18,8 +18,8 @@ bool Game::Init() {
 	LoadMusic();
 
 	Player.Init(WIN_WIDTH/2, WIN_HEIGHT*3/4, 82, 104, 5);
-	idxShot = 0;
-	lT = 0, cT = 0;
+	idxShot = 0, idxEnemy = 0;
+	lTs = 0, cTs = 0, lTe = 0, cTe = 0, filas = 0, dist = 0, xEnemy = 0;
 	int h;
 	SDL_QueryTexture(img_background, NULL, NULL, NULL, &h);
 	Scene.Init(0, 0, WIN_WIDTH, h, 4);
@@ -34,6 +34,9 @@ bool Game::LoadImages() {
 	img_background = SDL_CreateTextureFromSurface(ren, IMG_Load("backgrounds.png"));
 	img_player = SDL_CreateTextureFromSurface(ren, IMG_Load("spaceshipPro.png"));
 	img_shot = SDL_CreateTextureFromSurface(ren, IMG_Load("shot.png"));
+	img_enemy1 = SDL_CreateTextureFromSurface(ren, IMG_Load("enemy1.png"));
+	img_enemy2 = SDL_CreateTextureFromSurface(ren, IMG_Load("enemy2.png"));
+	img_enemy3 = SDL_CreateTextureFromSurface(ren, IMG_Load("enemy3.png"));
 
 	return true;
 }
@@ -57,6 +60,9 @@ void Game::Release() {
 	SDL_DestroyTexture(img_background);
 	SDL_DestroyTexture(img_player);
 	SDL_DestroyTexture(img_shot);
+	SDL_DestroyTexture(img_enemy1);
+	SDL_DestroyTexture(img_enemy2);
+	SDL_DestroyTexture(img_enemy3);
 	Mix_FreeMusic(music);
 	Mix_FreeChunk(fx_shot);
 	Mix_CloseAudio();
@@ -83,7 +89,6 @@ bool Game::Input() {
 }
 
 bool Game::Update() {
-	srand(time(NULL));
 	if (!Input())
 	{
 		return true;
@@ -110,10 +115,9 @@ bool Game::Update() {
 	}
 	if (keys[SDL_SCANCODE_KP_4] == KEY_REPEAT)
 	{
-		cT = SDL_GetTicks();
-		if (cT > lT + SHOTDELAY) {
-			int x, y;
-			int w, h;
+		cTs = SDL_GetTicks();
+		if (cTs > lTs + SHOTDELAY) {
+			int x, y, w, h;
 			Player.GetRect(&x, &y, &w, &h);
 			//size: 56x20
 			Shots[idxShot].Init(x + 15, y + 29, 20, 56, SHOTSPEED);
@@ -123,7 +127,7 @@ bool Game::Update() {
 			idxShot++;
 			idxShot %= MAX_SHOTS;
 			Mix_PlayChannel(2, fx_shot, 0);
-			lT = cT;
+			lTs = cTs;
 		}
 	}
 
@@ -143,6 +147,37 @@ bool Game::Update() {
 				Shots[i].ShutDown();
 			}
 		}
+	}
+
+	//Enemies
+	cTe = SDL_GetTicks();
+	if (cTe > lTe + 1000) {
+		//size: 32x32
+		if (filas == 0)
+		{
+			for (int i = 0; i < (filas + 1) * 6; i++)
+			{
+				Enemy[idxEnemy].Init(xEnemy + dist, WIN_HEIGHT / 2, 32, 32, 50);
+				dist += 50;
+				idxEnemy++;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < (filas + 1) * 6; i++)
+			{
+				Enemy[idxEnemy].Init(xEnemy + dist, WIN_HEIGHT / 2, 32, 32, 50);
+				dist += 50;
+				//Movimiento
+				idxEnemy++;
+			}
+		}
+		filas++;
+
+		dist = 0;
+		idxEnemy %= MAX_ENEMIES;
+		std::cout << idxEnemy << endl;
+		lTe = cTe;
 	}
 
 	return false;
@@ -174,6 +209,18 @@ void Game::Draw() {
 		{
 			Shots[i].GetRect(&rect.x, &rect.y, &rect.w, &rect.h);
 			SDL_RenderCopy(ren, img_shot, NULL, &rect);
+			if (godMode) {
+				SDL_RenderDrawRect(ren, &rect);
+			}
+		}
+	}
+
+	for (int i = 0; i < MAX_ENEMIES; i++)
+	{
+		if (Enemy[i].IsAlive())
+		{
+			Enemy[i].GetRect(&rect.x, &rect.y, &rect.w, &rect.h);
+			SDL_RenderCopy(ren, img_enemy1, NULL, &rect);
 			if (godMode) {
 				SDL_RenderDrawRect(ren, &rect);
 			}

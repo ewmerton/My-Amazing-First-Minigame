@@ -18,6 +18,7 @@
 #define SHOTSPEED 30
 #define SHOTDELAY 200
 #define SHIPSPEED 1.5f
+#define MAX_ENEMIES 24
 
 using namespace std;
 
@@ -35,14 +36,15 @@ public:
 private:
 	SDL_Renderer* ren;
 	SDL_Window* win;
-	SDL_Texture* img_background, * img_player, * img_shot;
+	SDL_Texture* img_background, * img_player, * img_shot, * img_enemy1, * img_enemy2, * img_enemy3;
 	Mix_Music* music;
 	Mix_Chunk* fx_shot;
 
-	Entity Player, Shots[MAX_SHOTS], Scene;
+	Entity Player, Shots[MAX_SHOTS], Scene, Enemy[MAX_ENEMIES];
 	bool godMode;
 
-	int idxShot, cT, lT;
+	int idxShot, idxEnemy, cTs, lTs, cTe, lTe, filas;
+	float dist, xEnemy;
 
 	enum KEY_STATE { KEY_IDLE, KEY_DOWN, KEY_REPEAT, KEY_UP };
 	KEY_STATE keys[MAX_KEYS];

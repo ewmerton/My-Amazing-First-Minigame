@@ -1,0 +1,6 @@
+﻿  game.cpp
+E:\GitHub\My-Amazing-First-Minigame\game.cpp(161,33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+E:\GitHub\My-Amazing-First-Minigame\game.cpp(168,33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+E:\GitHub\My-Amazing-First-Minigame\game.cpp(176,33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+E:\GitHub\My-Amazing-First-Minigame\game.cpp(184,33): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  test1.vcxproj -> E:\GitHub\My-Amazing-First-Minigame\Debug\test1.exe
