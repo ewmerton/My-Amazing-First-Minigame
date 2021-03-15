@@ -1,0 +1,3 @@
+﻿  game.cpp
+E:\Programas\Proyecto1\test1\game.cpp(86,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  test1.vcxproj -> E:\Programas\Proyecto1\test1\Debug\test1.exe
