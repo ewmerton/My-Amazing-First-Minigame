@@ -8,7 +8,7 @@ Game::~Game() {
 bool Game::Init() {
 	SDL_Init(SDL_INIT_EVERYTHING); //Init
 	SDL_CreateWindowAndRenderer(WIN_WIDTH, WIN_HEIGHT, 0, &win, &ren); //create a window with renderer
-	SDL_SetWindowTitle(win, "Our First Game!!"); //name the window
+	SDL_SetWindowTitle(win, "A, S, W and D to move, SPACE to shoot, F to kill sound"); //name the window
 
 	for (int i = 0; i < MAX_KEYS; i++) {
 		keys[i] = KEY_IDLE;
@@ -19,7 +19,7 @@ bool Game::Init() {
 
 	Player.Init(WIN_WIDTH/2, WIN_HEIGHT*3/4, 82, 104, 5);
 	idxShot = 0, idxEnemy = 0;
-	lTs = 0, cTs = 0, lTe = 0, cTe = 0, filas = 0, dist = 0, xEnemy = 0;
+	lTs = 0, cTs = 0, lTe = 0, cTe = 0, dist = 0, xEnemy = 0;
 	int h;
 	SDL_QueryTexture(img_background, NULL, NULL, NULL, &h);
 	Scene.Init(0, 0, WIN_WIDTH, h, 4);
@@ -46,10 +46,12 @@ bool Game::LoadMusic() {
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024);
 	Mix_VolumeMusic(5);
 
-	music = Mix_LoadMUS("music.ogg");
-	fx_shot = Mix_LoadWAV("laser.wav");
+	music = Mix_LoadMUS("bgMusic.ogg");
+	fx_shot = Mix_LoadWAV("shotSound.wav");
+	fx_dead = Mix_LoadWAV("deathSound.wav");
 	Mix_PlayMusic(music, 1);
-	Mix_VolumeChunk(fx_shot, 5);
+	Mix_VolumeChunk(fx_shot, 2);
+	Mix_VolumeChunk(fx_dead, 4);
 
 	return true;
 }
@@ -65,6 +67,7 @@ void Game::Release() {
 	SDL_DestroyTexture(img_enemy3);
 	Mix_FreeMusic(music);
 	Mix_FreeChunk(fx_shot);
+	Mix_FreeChunk(fx_dead);
 	Mix_CloseAudio();
 	Mix_Quit();
 	IMG_Quit();
@@ -113,7 +116,7 @@ bool Game::Update() {
 	if (keys[SDL_SCANCODE_D] == KEY_REPEAT) {
 		fx = SHIPSPEED;
 	}
-	if (keys[SDL_SCANCODE_KP_4] == KEY_REPEAT)
+	if ((keys[SDL_SCANCODE_KP_4] == KEY_REPEAT) || (keys[SDL_SCANCODE_SPACE] == KEY_REPEAT))
 	{
 		cTs = SDL_GetTicks();
 		if (cTs > lTs + SHOTDELAY) {
@@ -131,12 +134,19 @@ bool Game::Update() {
 		}
 	}
 
+	//Kill
+	if (keys[SDL_SCANCODE_F] == KEY_DOWN) {
+		Kill();
+	}
+
 	Scene.Move(0, 1);
 	if (Scene.GetY() >= 0) {
 		Scene.SetY(-(Scene.GetHeight() / 2));
 	}
+
 	//Player update
 	Player.Move(fx, fy);
+
 	//Shots update
 	for (int i = 0; i < MAX_SHOTS; i++)
 	{
@@ -153,27 +163,18 @@ bool Game::Update() {
 	cTe = SDL_GetTicks();
 	if (cTe > lTe + 1000) {
 		//size: 32x32
-		if (filas == 0)
+		for (int i = 0; i < 6; i++)
 		{
-			for (int i = 0; i < (filas + 1) * 6; i++)
+			if (!Enemy[idxEnemy].IsAlive())
 			{
-				Enemy[idxEnemy].Init(xEnemy + dist, WIN_HEIGHT / 2, 32, 32, 50);
-				dist += 50;
-				idxEnemy++;
+				Enemy[idxEnemy].Init(xEnemy + dist, 0, 64, 64, 96);
 			}
-		}
-		else
-		{
-			for (int i = 0; i < (filas + 1) * 6; i++)
-			{
-				Enemy[idxEnemy].Init(xEnemy + dist, WIN_HEIGHT / 2, 32, 32, 50);
-				dist += 50;
-				//Movimiento
-				idxEnemy++;
+			else {
+				Enemy[idxEnemy].Move(0, 1);
 			}
+			dist += 96;
+			idxEnemy++;
 		}
-		filas++;
-
 		dist = 0;
 		idxEnemy %= MAX_ENEMIES;
 		std::cout << idxEnemy << endl;
@@ -229,4 +230,9 @@ void Game::Draw() {
 
 	SDL_RenderPresent(ren);
 	SDL_Delay(10);
+}
+
+void Game::Kill() {
+	Mix_PlayChannel(2, fx_dead, 0);
+	//Enemy[].ShutDown();
 }
