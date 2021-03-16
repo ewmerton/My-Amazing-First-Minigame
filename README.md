@@ -2,7 +2,7 @@
 
 ## Description
 
-{project description}
+{}
 
 ## Key Features
 
@@ -20,10 +20,11 @@
 
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
+ - {RubokiReuchi} - {Role(s)}
+ - {RocDiezBorras} - {Role(s)}
+ - {Zapper163} - {Role(s)}
+ - {polgoni1} - {Role(s)}
+ - {ewmerton} - {Role(s)}
 
 ## License
 
