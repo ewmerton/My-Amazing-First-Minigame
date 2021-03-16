@@ -1,25 +1,26 @@
-# Minigame
+# My-Amazing-First-Minigame
 
 ## Description
 
-A minigame for SDL testing
+A shoot'em up minigame based on the classic "Spacewar!"
 
 ## Key Features
 
-You are a turtle, and you can swim like a turtle... and you can shoot bubbles to a jellyfish 
-
 ## Controls
 
-Move: Up, Down, Left and Rigth arrows
-
-Shoot: Space bar
-
-Exit game: Esc
+ - A, W, S and D to move
+ - SPACE to shoot
+ - F1 to toggle God Mode
+ - ESC to exit
 
 ## Developers
 
-{Dani} - {Lead}
+ - RubokiReuchi
+ - RocDiezBorras
+ - Zapper163
+ - polgoni1
+ - ewmerton
 
-{Xavi} - {Programmer}
+## License
 
-{Laia} - {Art}
+This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
