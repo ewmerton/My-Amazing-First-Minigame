@@ -2,15 +2,10 @@
 
 ## Description
 
-{A shoot'em up minigame based on the classic "Spacewar!"}
+A shoot'em up minigame based on the classic "Spacewar!"
 
 ## Key Features
 
- - {Feature01}
- - {Feature02}
- - {Feature03}
- - {Feature04}
- 
 ## Controls
 
  - A, W, S and D to move
@@ -20,14 +15,12 @@
 
 ## Developers
 
- - {RubokiReuchi} - {Role(s)}
- - {RocDiezBorras} - {Role(s)}
- - {Zapper163} - {Role(s)}
- - {polgoni1} - {Role(s)}
- - {ewmerton} - {Role(s)}
+ - RubokiReuchi - {Role(s)}
+ - RocDiezBorras - {Role(s)}
+ - Zapper163 - {Role(s)}
+ - polgoni1 - {Role(s)}
+ - ewmerton - {Role(s)}
 
 ## License
 
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
-
-{AdditionalLicenses}
