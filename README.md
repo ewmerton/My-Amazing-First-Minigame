@@ -2,7 +2,7 @@
 
 ## Description
 
-{}
+{A shoot'em up minigame based on the classic "Spacewar!"}
 
 ## Key Features
 
