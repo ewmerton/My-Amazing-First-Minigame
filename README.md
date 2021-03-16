@@ -15,11 +15,11 @@ A shoot'em up minigame based on the classic "Spacewar!"
 
 ## Developers
 
- - RubokiReuchi - Code
- - RocDiezBorras - Code
- - Zapper163 - Code
- - polgoni1 - Art
- - ewmerton - Art
+ - RubokiReuchi
+ - RocDiezBorras
+ - Zapper163
+ - polgoni1
+ - ewmerton
 
 ## License
 
